@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            text-align: center;
+            width: 400px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.2);
+        }
+
+        label, button {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #submit {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submit:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+    <style>
+        /* Add custom CSS for the header */
+        header {
+            background-color:#d5d9a8; /* Set the background color to match the buttons' color in the home page */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px;
+            max-width: 100%; /* Set a maximum width to avoid overflow */
+            white-space: nowrap; /* Prevent text from wrapping to the next line */
+            overflow: visible;
+            position: relative; /* Add relative positioning */
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 80px; /* Adjust the width as needed */
+            margin-right: 20px; /* Add margin between the logo and tabs */
+        }
+
+        .tabs {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tabs li {
+            margin: 0;
+            padding: 0;
+            text-align: center; /* Center-align items */
+            flex: 1; /* Distribute space equally among the items */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        .tabs a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold; /* Make the items bold */
+            font-size: 18px; /* Increase text size to 18px */
+            padding: 15px; /* Add 15px of padding to each item */
+            white-space: nowrap; /* Prevent text from wrapping */
+            transition: background-color 0.3s; /* Add hover effect */
+            display: block; /* Ensure the entire area is clickable */
+            position: relative; /* Add relative positioning */
+        }
+
+        .tabs a:hover {
+            background-color: #c0c2a7; /* Change background color on hover */
+        }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+            z-index: +1; /* Ensure the dropdown is above the content */
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            text-align: left; /* Align dropdown content to the left */
+            top: 100%; /* Position below the dropdown item */
+            background-color: #d0d39f;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 15px; /* Add 15px of padding to each item */
+            text-decoration: none;
+            display: block;
+            font-weight: normal;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #c0c2a7;
+        }
+
+        .header-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            overflow: visible; /* Set overflow to visible */
+        }
+
+        body {
+            background-color: #ffffff; /* Set the background color to match the home page */
+            padding-top: 80px; /* Adjust padding to account for the header height */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+        }
+
+        .page-container {
+            padding: 20px; /* Add padding to separate content from the header */
+            z-index: -1;
+        }
+
+        #file-content {
+            background-color: #ffffff; /* Set content background color to match the home page */
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center; /* Center-align the content */
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <div class="logo-container">
+                <img src="static/logo.png" alt="Your Logo" class="logo">
+            </div>
+            <ul class="tabs">
+                <li class="dropdown">
+                    <a href="#classify">Classify</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('reviews') }}">Based on Reviews</a>
+                        <a href="{{ url_for('ratings')}}">Based on Ratings</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#visualise">Visualise</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('barchart')}}">Bar Chart</a>
+                        <a href="{{ url_for('piechart')}}">Pie Chart</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#compare">LDA Analysis</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('positivewordcloud')}}">Word Cloud For Positive</a>
+                        <a href="{{ url_for('negativewordcloud')}}">Wordcloud for negative</a>
+                        <a href="{{ url_for('lda5')}}">LDA Topic Modeling with 5 Topics</a>
+                        <a href="{{ url_for('lda10')}}">LDA Topic Modeling with 10 Topics</a>
+                        <a href="{{ url_for('lda15')}}">LDA Topic Modeling with 15 Topics</a>
+                    </div>
+                </li>
+                <li class="dropdown">
+                    <a href="#product-feedback">Bert Topic Modeling</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('bertbargraph')}}">bargraph</a>
+                        <a href="{{ url_for('clusters')}}">clusters</a>
+                        <a href="{{ url_for('hierarchy')}}">hierarchy</a>
+                    </div> 
+                </li>
+                <li><a href="{{ url_for('feedback')}}">Feedback</a></li>
+                <li><a href="{{ url_for('download_report') }}" target="_blank">Download</a></li>
+            </ul>
+        </header>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("#submit").click(function(){
+                    var feedback = $("#feedback").val();
+                    var date = new Date();
+                    var feedbackObject = {feedback: feedback, timestamp: date};
+                    var allFeedbacks = localStorage.getItem('feedbacks') ? JSON.parse(localStorage.getItem('feedbacks')) : [];
+                    allFeedbacks.push(feedbackObject);
+                    localStorage.setItem('feedbacks', JSON.stringify(allFeedbacks));
+                    alert('Feedback saved successfully');
+                });
+            });
+        </script>
+    
+    <body>
+        <form>
+            <label for="feedback">Feedback:</label><br>
+            <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+            <button id="submit">Submit</button>
+        </form>
+    </body>
+</body>
+</html>
